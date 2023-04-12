@@ -1,0 +1,3 @@
+[submodule "code/phase3/events-board-project/code/phase3/events-board-project/events-server"]
+	path = code/phase3/events-board-project/code/phase3/events-board-project/events-server
+	url = git@github.com:wanjirumuigai/phase-3-sinatra-react-project.git
