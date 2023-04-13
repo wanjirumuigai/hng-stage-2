@@ -35,12 +35,11 @@ function Edit() {
           noOfParticipants: data.number_of_participants,
           status: data.status,
           eventDate: new Date(data.event_date).toISOString().split("T")[0],
-          eventVenue: data.event_venue,
+          eventVenue: data.venue_id,
         });
+        //console.log(data);
       });
   }, []);
-
-  console.log(formData);
 
   function handleChange(e) {
     const name = e.target.name;

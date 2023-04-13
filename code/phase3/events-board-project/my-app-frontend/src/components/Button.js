@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 function Button() {
   const navigate = useNavigate();
-  return <button onClick={() => navigate("/createvent")}>Add event</button>;
+  return (
+    <button className="btn" onClick={() => navigate("/createvent")}>
+      Add event
+    </button>
+  );
 }
 export default Button;

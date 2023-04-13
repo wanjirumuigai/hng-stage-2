@@ -42,10 +42,9 @@ const CreateEvent = () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
-    //console.log(formData);
+      .then((data) => navigate(`/assignstaff/${data.id}`));
 
-    navigate("/assignstaff/:id");
+    //console.log(formData);
   }
   function handleClose() {
     navigate("/");

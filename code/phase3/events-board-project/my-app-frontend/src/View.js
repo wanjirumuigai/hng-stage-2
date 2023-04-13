@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import PeopleIcon from "@mui/icons-material/People";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function View() {
   let { id } = useParams();
@@ -41,13 +44,19 @@ function View() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:9292/event/${id}`)
+    fetch(`http://localhost:9292/event_staff/${id}`)
       .then((res) => res.json())
       .then((data) => setStaff(data));
   }, []);
 
   function handleClose() {
     navigate("/");
+  }
+  function handleUpdate() {
+    navigate(`/edit/${id}`);
+  }
+  function assignStaff() {
+    navigate(`/assignstaff/${id}`);
   }
 
   return (
@@ -58,8 +67,15 @@ function View() {
             <p onClick={() => handleClose()}>
               <button id="close-btn">Close X</button>
             </p>
+            <p>
+              <PeopleIcon
+                className="visibilityIcon"
+                onClick={() => assignStaff()}
+              />
+              <EditIcon className="editIcon" onClick={() => handleUpdate()} />
+            </p>
             <div className="formbold-form-title">
-              <h2 className="">Edit an Event</h2>
+              <h2 className="">{formData.eventName}</h2>
             </div>
 
             <div>
@@ -136,14 +152,37 @@ function View() {
                 className="formbold-form-input"
               />
             </div>
+            <div class="staff-label">
+              <label class="formbold-form-label">Name</label>
+              <label class="formbold-form-label">Role</label>
+            </div>
             {staff.map((item) => {
               return (
-                <>
-                  {/* <p>{item.name}</p>
-                  <p>{item.role}</p> */}
-                  <input value={item.name} />
-                  <input value={item.role} />
-                </>
+                // <>
+
+                //   <input value={item.name} />
+                //   <input value={item.role} />
+                // </>
+                <div class="formbold-input-flex">
+                  <div>
+                    <input
+                      type="text"
+                      name="assetName"
+                      onChange=""
+                      value={item.name}
+                      class="formbold-form-input"
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      type="text"
+                      name="serialNumber"
+                      value={item.role}
+                      class="formbold-form-input"
+                    />
+                  </div>
+                </div>
               );
             })}
           </form>

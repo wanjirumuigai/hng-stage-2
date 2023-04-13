@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Edit from "./Edit";
 import { useNavigate } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function Event() {
   //const [isDarkMode, setIsDarkMode] = useState(true);
@@ -18,10 +19,6 @@ function Event() {
       .then((event) => setEvents(event));
   }, []);
 
-  function handleUpdate(id) {
-    navigate(`/edit/${id}`);
-  }
-
   function handleDelete(id) {
     fetch(`${url}/${id}`, {
       method: "DELETE",
@@ -34,6 +31,9 @@ function Event() {
       });
   }
 
+  function handleUpdate(id) {
+    navigate(`/edit/${id}`);
+  }
   function assignStaff(id) {
     navigate(`/assignstaff/${id}`);
   }
@@ -44,55 +44,64 @@ function Event() {
 
   return (
     <>
-      {events.map((item) => {
-        return (
-          <li
-            className="cards__item"
-            key={item.id}
-            onClick={() => handleClick(item.id)}
-          >
-            <div className="card" key={item.id}>
-              <>
-                {/* <img
+      {events &&
+        events.map((item) => {
+          return (
+            <li className="cards__item" key={item.id}>
+              <div className="card" key={item.id}>
+                <>
+                  {/* <img
                   key={item.id}
                   onClick={handleClick}
                   src={item.pictureUrl}
                   alt={item.name}
                   className="card__image"
                 /> */}
-                <div className="card__content">
-                  <div className="card__title">{item.name}</div>
-                  <p className="card__text">
-                    Event Date:{" "}
-                    {new Date(item.event_date).toLocaleDateString("en-US")}
-                  </p>
+                  <div className="card__content">
+                    <div
+                      className="card__title"
+                      onClick={() => handleClick(item.id)}
+                    >
+                      {item.name}
+                    </div>
+                    <p className="card__text">
+                      Event Date:{" "}
+                      {new Date(item.event_date).toLocaleDateString("en-US")}
+                    </p>
 
-                  <p>Event Type: {item.event_type}</p>
-                  <br />
-                  <p>Number of Participants: {item.number_of_participants}</p>
-                  <p>Venue: {item.venue.name}</p>
-                </div>
-                <div className="card__detail">
-                  <p></p>
-                  <p></p>
-                  <p>
-                    <PeopleIcon onClick={() => assignStaff(item.id)} />
-                    <EditIcon
-                      className="editIcon"
-                      onClick={() => handleUpdate(item.id)}
-                    />
+                    <p>Event Type: {item.event_type}</p>
+                    <br />
+                    <p>Number of Participants: {item.number_of_participants}</p>
+                    {/* <p>Venue: {item.venue.name}</p> */}
+                  </div>
+                  <div className="card__detail">
+                    <p></p>
+                    <p></p>
+                    <p>
+                      <VisibilityIcon
+                        className="visibilityIcon"
+                        onClick={() => handleClick(item.id)}
+                      />
+                      <PeopleIcon
+                        className="visibilityIcon"
+                        onClick={() => assignStaff(item.id)}
+                      />
+                      <EditIcon
+                        className="editIcon"
+                        onClick={() => handleUpdate(item.id)}
+                      />
 
-                    <DeleteIcon
-                      className="deleteIcon"
-                      onClick={() => handleDelete(item.id)}
-                    />
-                  </p>
-                </div>
-              </>
-            </div>
-          </li>
-        );
-      })}
+                      <DeleteIcon
+                        className="deleteIcon"
+                        onClick={() => handleDelete(item.id)}
+                      />
+                    </p>
+                  </div>
+                </>
+              </div>
+            </li>
+          );
+        })}
     </>
   );
 }
